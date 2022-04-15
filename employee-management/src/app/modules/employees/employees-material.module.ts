@@ -7,6 +7,8 @@ import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatIconModule} from '@angular/material/icon';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatNativeDateModule} from '@angular/material/core';
 
 const AngularMaterials = [
   MatFormFieldModule,
@@ -16,7 +18,9 @@ const AngularMaterials = [
   MatPaginatorModule,
   MatIconModule,
   MatMenuModule,
-  MatSnackBarModule
+  MatSnackBarModule,
+  MatDatepickerModule,
+  MatNativeDateModule
 ];
 
 @NgModule({

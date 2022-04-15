@@ -4,27 +4,23 @@ import {
   RouterStateSnapshot,
   ActivatedRouteSnapshot
 } from '@angular/router';
-import {Observable, of, take} from 'rxjs';
-import {EmployeesService} from '@data/employees';
+import {map, Observable, of, take} from 'rxjs';
+import {Employee, EmployeesService} from '@data/employees';
 
 @Injectable()
-export class EmployeeResolver implements Resolve<boolean> {
+export class EmployeeResolver implements Resolve<boolean | Employee> {
   constructor(
     private service: EmployeesService,
     private router: Router
   ) {}
 
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
-    console.log(this.router.getCurrentNavigation()?.extras.state);
-    console.log(state.root);
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean | Employee> {
+    if (this.router.getCurrentNavigation()?.extras?.state?.['employee'])
+      return this.router.getCurrentNavigation()?.extras?.state?.['employee'];
 
     if (route.params['id'])
-      this.service.find(route.params['id'])
-        .pipe(take(1))
-        .subscribe(res => {
-          console.log(res);
-        });
+      return this.service.find(route.params['id']);
 
-    return of(true);
+    return of(true)
   }
 }

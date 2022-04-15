@@ -18,7 +18,8 @@ export class EmployeesService {
   }
 
   update(employee: UpdateEmployeeDto): Observable<Employee> {
-    return this.http.patch<Employee>(this.baseUrl, { employee: employee });
+    return this.http.patch<IEmployeeAPI>(this.baseUrl, { employee: employee })
+      .pipe(map(employee => Employee.fromJson(employee)));
   }
 
   delete(id: string): Observable<Employee> {
@@ -26,7 +27,8 @@ export class EmployeesService {
   }
 
   find(id: string): Observable<Employee> {
-    return this.http.get<Employee>(this.baseUrl + '/find', { params: { id } });
+    return this.http.get<IEmployeeAPI>(this.baseUrl + '/find', { params: { id } })
+      .pipe(map(employee => Employee.fromJson(employee)));
   }
 
   all(): Observable<Employee[]> {
