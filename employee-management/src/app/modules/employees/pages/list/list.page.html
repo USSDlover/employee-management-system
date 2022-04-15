@@ -26,11 +26,11 @@
   </table>
 </ng-container>
 
-<button mat-fab class="mat-fab">
-  <a routerLink="./new">
+<a routerLink="./new" class="new-employee">
+  <button mat-fab>
     <mat-icon>add</mat-icon>
-  </a>
-</button>
+  </button>
+</a>
 
 <ng-template #emptyList>
   There is no data available. <a routerLink="./new">Create new Employee</a>
