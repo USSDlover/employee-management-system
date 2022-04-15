@@ -1,0 +1,10 @@
+<a routerLink="/employees">Back to employees list</a>
+<form *ngIf="formGroup" [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+  <ng-container *ngFor="let field of formFields">
+    <mat-form-field appearance="outline" [id]="field.id">
+      <mat-label>{{ field.label }}</mat-label>
+      <input matInput [type]="field.type" [formControlName]="field.id">
+    </mat-form-field>
+  </ng-container>
+  <button mat-raised-button type="submit">Submit</button>
+</form>

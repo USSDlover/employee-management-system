@@ -1,0 +1,14 @@
+#docker-compose file
+version: '3'
+
+services:
+  employee_management_app:
+    container_name: employee_management_app
+    image: employee_management_app:1.0.0
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env
