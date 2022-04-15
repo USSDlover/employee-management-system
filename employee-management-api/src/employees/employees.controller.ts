@@ -12,7 +12,7 @@ import { CreateEmployeeDto } from './create-employee.dto';
 import { UpdateEmployeeDto } from './update-employee.dto';
 import { Employee } from './employee.model';
 
-@Controller('employee')
+@Controller('employees')
 export class EmployeesController {
   constructor(private readonly employeeService: EmployeesService) {}
 
@@ -30,7 +30,9 @@ export class EmployeesController {
   }
 
   @Patch()
-  async patchEmployee(@Body('employee') updateEmployeeDto: UpdateEmployeeDto): Promise<Employee> {
+  async patchEmployee(
+    @Body('employee') updateEmployeeDto: UpdateEmployeeDto,
+  ): Promise<Employee> {
     return this.employeeService.update(updateEmployeeDto);
   }
 

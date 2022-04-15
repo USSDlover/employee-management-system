@@ -9,7 +9,7 @@ import {UpdateEmployeeDto} from '@data/employees';
 
 @Injectable()
 export class EmployeesService {
-  private baseUrl = environment.api.baseUrl + 'employee';
+  private baseUrl = environment.api.baseUrl + 'employees';
 
   constructor(private http: HttpClient) { }
 
