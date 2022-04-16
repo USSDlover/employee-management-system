@@ -2,11 +2,11 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {environment} from 'environment';
 import {CreateEmployeeDto} from '../dtos/create-employee.dto';
+import {UpdateEmployeeDto} from '../dtos/update-employee.dto';
+import {SearchEmployeeDto} from '../dtos/search-employee.dto';
 import {map, Observable} from 'rxjs';
 import {Employee} from '../models/employee';
 import {IEmployeeAPI} from '../interfaces/employee-api.interface';
-import {UpdateEmployeeDto} from '@data/employees';
-import {SearchEmployeeDto} from '@data/employees/dtos/search-employee.dto';
 
 @Injectable()
 export class EmployeesService {
