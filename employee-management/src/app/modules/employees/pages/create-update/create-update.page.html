@@ -2,21 +2,36 @@
 <form *ngIf="formGroup" [formGroup]="formGroup" (ngSubmit)="onSubmit()">
   <ng-container *ngFor="let field of formFields">
 
-    <ng-container *ngIf="field.type !== 'date' else datePicker">
-      <mat-form-field appearance="outline" [id]="field.id">
-        <mat-label>{{ field.label }}</mat-label>
-        <input matInput [type]="field.type" [formControlName]="field.id">
-      </mat-form-field>
-    </ng-container>
+    <ng-container [ngSwitch]="field.type">
 
-    <ng-template #datePicker>
-      <mat-form-field appearance="outline" [id]="field.id">
-        <mat-label>{{ field.label }}</mat-label>
-        <input matInput [matDatepicker]="picker" [formControlName]="field.id">
-        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
-      </mat-form-field>
-    </ng-template>
+      <ng-template ngSwitchCase="date">
+        <mat-form-field appearance="outline" [id]="field.id">
+          <mat-label>{{ field.label }}</mat-label>
+          <input matInput [matDatepicker]="picker" [formControlName]="field.id">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      </ng-template>
+
+
+      <ng-template ngSwitchCase="select">
+        <mat-form-field appearance="outline" [id]="field.id">
+          <mat-label>{{ field.label }}</mat-label>
+          <mat-select [formControlName]="field.id">
+            <mat-option *ngFor="let office of availableOffices" [value]="office">
+              {{ office }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </ng-template>
+
+      <ng-template ngSwitchDefault>
+        <mat-form-field appearance="outline" [id]="field.id">
+          <mat-label>{{ field.label }}</mat-label>
+          <input matInput [type]="field.type" [formControlName]="field.id">
+        </mat-form-field>
+      </ng-template>
+    </ng-container>
 
   </ng-container>
   <button [disabled]="formGroup.invalid" mat-raised-button type="submit">

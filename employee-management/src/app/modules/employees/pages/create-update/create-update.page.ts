@@ -15,6 +15,11 @@ export class CreateUpdatePage implements OnInit {
   formFields: TNewEmployeeFields = getNewEmployeeFields();
   formGroup: FormGroup | undefined;
   employee: Employee | undefined;
+  availableOffices: string[] = [
+    'Riga',
+    'Tallin',
+    'Vilnius'
+  ];
 
   constructor(
     private title: Title,
