@@ -94,7 +94,7 @@ export class CreateUpdatePage implements OnInit {
       officeName: new FormControl(this.employee?.officeName ?? null, [Validators.required]),
       birthDate: new FormControl(this.employee?.birthDate ?? null, [Validators.required]),
       phoneNumber: new FormControl(this.employee?.phoneNumber ?? null, [Validators.required]),
-      tags: new FormControl(this.employee?.tags ?? [], [Validators.required])
+      tags: new FormControl(this.employee?.tags ?? [])
     });
   }
 
