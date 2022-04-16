@@ -1,5 +1,5 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {SearchEmployeeDto} from '@data/employees/dtos/search-employee.dto';
+import {SearchEmployeeDto} from '@data/employees';
 
 @Component({
   selector: 'app-search-form',

@@ -1,12 +1,11 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Title} from '@angular/platform-browser';
-import {Employee, EmployeesService} from '@data/employees';
+import {Employee, EmployeesService, SearchEmployeeDto} from '@data/employees';
 import {Subscription} from 'rxjs';
 import {environment} from 'environment';
 import {EmployeeTableColumns} from './employee-table-columns';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {ActivatedRoute, Router} from '@angular/router';
-import {SearchEmployeeDto} from '@data/employees/dtos/search-employee.dto';
 
 @Component({
   selector: 'app-list',
