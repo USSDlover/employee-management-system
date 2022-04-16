@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Title} from '@angular/platform-browser';
-import {Employee, EmployeesService} from '@data/employees';
+import {Employee, EmployeesService, SearchEmployeeDto} from '@data/employees';
 import {Subscription} from 'rxjs';
 import {environment} from 'environment';
 import {EmployeeTableColumns} from './employee-table-columns';
@@ -37,7 +37,7 @@ export class ListPage implements OnInit, OnDestroy {
     this.title.setTitle(environment.title.baseTitle + ' | List Employees');
   }
 
-  private getEmployees(): void {
+  getEmployees(): void {
     this.subscriptions.add(
       this.employeesService.all()
         .subscribe(employees => this.employees = employees)
@@ -65,6 +65,15 @@ export class ListPage implements OnInit, OnDestroy {
           complete: () => {}
         })
       )
+  }
+
+  onSearchFormSubmit(searchModel: SearchEmployeeDto): void {
+    this.employeesService.search(searchModel)
+      .subscribe({
+        next: matchedEmployees => this.employees = matchedEmployees,
+        error: err => console.error(err),
+        complete: () => {}
+      })
   }
 
   ngOnDestroy(): void {

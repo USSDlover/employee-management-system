@@ -2,10 +2,11 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {environment} from 'environment';
 import {CreateEmployeeDto} from '../dtos/create-employee.dto';
+import {UpdateEmployeeDto} from '../dtos/update-employee.dto';
+import {SearchEmployeeDto} from '../dtos/search-employee.dto';
 import {map, Observable} from 'rxjs';
 import {Employee} from '../models/employee';
 import {IEmployeeAPI} from '../interfaces/employee-api.interface';
-import {UpdateEmployeeDto} from '@data/employees';
 
 @Injectable()
 export class EmployeesService {
@@ -24,6 +25,11 @@ export class EmployeesService {
 
   delete(id: string): Observable<Employee> {
     return this.http.delete<Employee>(this.baseUrl, { body: { id } });
+  }
+
+  search(filter: SearchEmployeeDto): Observable<Employee[]> {
+    return this.http.post<IEmployeeAPI[]>(this.baseUrl + '/search', { filter })
+      .pipe(map(employees => employees.map(employee => Employee.fromJson(employee))));
   }
 
   find(id: string): Observable<Employee> {

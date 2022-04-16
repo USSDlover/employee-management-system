@@ -11,6 +11,7 @@ import { EmployeesService } from './employees.service';
 import { CreateEmployeeDto } from './create-employee.dto';
 import { UpdateEmployeeDto } from './update-employee.dto';
 import { Employee } from './employee.model';
+import { SearchEmployeeDto } from './search-employee.dto';
 
 @Controller('employees')
 export class EmployeesController {
@@ -34,6 +35,13 @@ export class EmployeesController {
     @Body('employee') updateEmployeeDto: UpdateEmployeeDto,
   ): Promise<Employee> {
     return this.employeeService.update(updateEmployeeDto);
+  }
+
+  @Post('search')
+  async search(
+    @Body('filter') searchEmployeeDto: SearchEmployeeDto,
+  ): Promise<Employee[]> {
+    return this.employeeService.search(searchEmployeeDto);
   }
 
   @Get('find')

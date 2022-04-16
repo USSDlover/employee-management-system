@@ -4,6 +4,7 @@ import { Model } from 'mongoose';
 import { Employee } from './employee.model';
 import { CreateEmployeeDto } from './create-employee.dto';
 import { UpdateEmployeeDto } from './update-employee.dto';
+import { SearchEmployeeDto } from './search-employee.dto';
 
 @Injectable()
 export class EmployeesService {
@@ -24,6 +25,20 @@ export class EmployeesService {
 
   async delete(employeeId: string): Promise<Employee> {
     return this.employeeModel.findByIdAndDelete(employeeId).exec();
+  }
+
+  async search(searchEmployeeDto: SearchEmployeeDto): Promise<Employee[]> {
+    const nameRegex = new RegExp(searchEmployeeDto.name, 'ig');
+    const officeRegex = new RegExp(searchEmployeeDto.officeName, 'ig');
+
+    return this.employeeModel
+      .find({
+        $and: [
+          { $or: [{ firstName: nameRegex }, { lastName: nameRegex }] },
+          { officeName: officeRegex },
+        ],
+      })
+      .exec();
   }
 
   async findOne(employeeId: string): Promise<Employee> {

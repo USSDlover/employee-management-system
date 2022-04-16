@@ -1,5 +1,6 @@
 export * from './dtos/create-employee.dto';
 export * from './dtos/update-employee.dto';
+export * from './dtos/search-employee.dto';
 export * from './interfaces/employee.interface';
 export * from './interfaces/employee-api.interface';
 export * from './models/employee';

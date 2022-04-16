@@ -7,16 +7,18 @@ import { CreateUpdatePage } from './pages/create-update/create-update.page';
 import {EmployeesDataModule} from '@data/employees';
 import {HttpClientModule} from '@angular/common/http';
 import {EmployeesMaterialModule} from './employees-material.module';
-import {ReactiveFormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {ColumnPipe} from './pages/list/column.pipe';
 import {EmployeeResolver} from './resolvers/employee.resolver';
+import {SearchFormComponent} from './pages/list/search-form/search-form.component';
 
 
 @NgModule({
   declarations: [
     ListPage,
     CreateUpdatePage,
-    ColumnPipe
+    ColumnPipe,
+    SearchFormComponent
   ],
   imports: [
     CommonModule,
@@ -24,7 +26,8 @@ import {EmployeeResolver} from './resolvers/employee.resolver';
     EmployeesDataModule,
     HttpClientModule,
     EmployeesMaterialModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FormsModule
   ],
   providers: [EmployeeResolver]
 })

@@ -10,7 +10,7 @@ export const EmployeeSchema = new Schema({
 });
 
 export interface Employee extends Document {
-  id: string;
+  _id: string;
   firstName: string;
   lastName: string;
   officeName: string;
