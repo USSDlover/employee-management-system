@@ -25,6 +25,25 @@
         </mat-form-field>
       </ng-template>
 
+      <ng-template ngSwitchCase="tag">
+        <mat-form-field appearance="outline" [id]="field.id">
+          <mat-label>{{ field.label }}</mat-label>
+          <mat-chip-list #chipList aria-label="Fruit selection">
+            <mat-chip *ngFor="let tag of (formGroup.get(field.id)?.value || [])" (removed)="removeTag(tag)">
+              {{tag}}
+              <button matChipRemove>
+                <mat-icon>cancel</mat-icon>
+              </button>
+            </mat-chip>
+            <input placeholder="New tag..."
+                   [matChipInputFor]="chipList"
+                   [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                   [matChipInputAddOnBlur]="true"
+                   (matChipInputTokenEnd)="addTag($event)">
+          </mat-chip-list>
+        </mat-form-field>
+      </ng-template>
+
       <ng-template ngSwitchDefault>
         <mat-form-field appearance="outline" [id]="field.id">
           <mat-label>{{ field.label }}</mat-label>

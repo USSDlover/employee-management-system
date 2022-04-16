@@ -1,7 +1,7 @@
 type TEmployeeFields = 'firstName' | 'lastName' | 'officeName' | 'birthDate' |
   'phoneNumber' | 'tags' | 'id';
 
-type TEmployeeFieldType = 'number' | 'text' | 'date' | 'select';
+type TEmployeeFieldType = 'number' | 'text' | 'date' | 'select' | 'tag';
 
 export type TNewEmployeeFields = { label: string; id: TEmployeeFields; type: TEmployeeFieldType }[];
 
@@ -34,7 +34,7 @@ const RequiredFormFields: TNewEmployeeFields = [
   {
     label: 'Tags',
     id: 'tags',
-    type: 'text'
+    type: 'tag'
   }
 ]
 
