@@ -28,12 +28,11 @@ export class EmployeesService {
   }
 
   async search(searchEmployeeDto: SearchEmployeeDto): Promise<Employee[]> {
+    const nameRegex = new RegExp(searchEmployeeDto.name, 'ig');
+
     return this.employeeModel
       .find({
-        firstName: searchEmployeeDto.name,
-        lastName: searchEmployeeDto.name,
-        officeName: searchEmployeeDto.officeName,
-        tags: searchEmployeeDto.tags,
+        $or: [{ firstName: nameRegex }, { lastName: nameRegex }],
       })
       .exec();
   }

@@ -1,0 +1,14 @@
+<mat-form-field appearance="standard">
+  <mat-label>Search by employee name</mat-label>
+  <input type="search"
+         matInput
+         [(ngModel)]="searchModel.name">
+</mat-form-field>
+<button mat-icon-button (click)="submitted.emit(searchModel)">
+  <mat-icon>search</mat-icon>
+</button>
+<ng-container *ngIf="searchModel.name.length > 0">
+  <button mat-icon-button (click)="cleared.emit(); searchModel.name = ''">
+    <mat-icon>cancel</mat-icon>
+  </button>
+</ng-container>

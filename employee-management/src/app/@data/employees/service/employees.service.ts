@@ -6,6 +6,7 @@ import {map, Observable} from 'rxjs';
 import {Employee} from '../models/employee';
 import {IEmployeeAPI} from '../interfaces/employee-api.interface';
 import {UpdateEmployeeDto} from '@data/employees';
+import {SearchEmployeeDto} from '@data/employees/dtos/search-employee.dto';
 
 @Injectable()
 export class EmployeesService {
@@ -24,6 +25,11 @@ export class EmployeesService {
 
   delete(id: string): Observable<Employee> {
     return this.http.delete<Employee>(this.baseUrl, { body: { id } });
+  }
+
+  search(filter: SearchEmployeeDto): Observable<Employee[]> {
+    return this.http.post<IEmployeeAPI[]>(this.baseUrl + '/search', { filter })
+      .pipe(map(employees => employees.map(employee => Employee.fromJson(employee))));
   }
 
   find(id: string): Observable<Employee> {
