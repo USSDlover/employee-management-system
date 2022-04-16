@@ -7,6 +7,7 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Employee, EmployeesService, UpdateEmployeeDto} from '@data/employees';
 import {ActivatedRoute} from '@angular/router';
 import {MatChipInputEvent} from '@angular/material/chips';
+import {getOffices} from '@data/offices';
 
 @Component({
   selector: 'app-create-update',
@@ -17,11 +18,7 @@ export class CreateUpdatePage implements OnInit {
   formFields: TNewEmployeeFields = getNewEmployeeFields();
   formGroup: FormGroup | undefined;
   employee: Employee | undefined;
-  availableOffices: string[] = [
-    'Riga',
-    'Tallin',
-    'Vilnius'
-  ];
+  availableOffices: string[] = getOffices();
   readonly separatorKeysCodes = [ENTER, COMMA] as const;
 
   constructor(
