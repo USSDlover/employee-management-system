@@ -53,8 +53,10 @@ export class CreateUpdatePage implements OnInit {
     } else {
       this.employeeService.create(this.formGroup?.value)
         .subscribe({
-          next: (res) => {
-            console.log('Create result', res);
+          next: () => {
+            this.formGroup?.reset();
+            this.formGroup?.clearValidators();
+            this.formGroup?.setErrors(null);
           },
           error: err => {
             console.log(err);
@@ -94,7 +96,7 @@ export class CreateUpdatePage implements OnInit {
       officeName: new FormControl(this.employee?.officeName ?? null, [Validators.required]),
       birthDate: new FormControl(this.employee?.birthDate ?? null, [Validators.required]),
       phoneNumber: new FormControl(this.employee?.phoneNumber ?? null, [Validators.required]),
-      tags: new FormControl(this.employee?.tags ?? [], [Validators.required])
+      tags: new FormControl(this.employee?.tags ?? [])
     });
   }
 

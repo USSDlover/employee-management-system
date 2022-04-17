@@ -12,6 +12,7 @@ import { CreateEmployeeDto } from './create-employee.dto';
 import { UpdateEmployeeDto } from './update-employee.dto';
 import { Employee } from './employee.model';
 import { SearchEmployeeDto } from './search-employee.dto';
+import { IEmployeeArrayResponse } from './employee-array-response.interface';
 
 @Controller('employees')
 export class EmployeesController {
@@ -40,8 +41,10 @@ export class EmployeesController {
   @Post('search')
   async search(
     @Body('filter') searchEmployeeDto: SearchEmployeeDto,
-  ): Promise<Employee[]> {
-    return this.employeeService.search(searchEmployeeDto);
+    @Query('pageSize') pageSize: number,
+    @Query('pageNum') pageNum: number,
+  ): Promise<IEmployeeArrayResponse> {
+    return this.employeeService.search(searchEmployeeDto, pageSize, pageNum);
   }
 
   @Get('find')
@@ -50,7 +53,10 @@ export class EmployeesController {
   }
 
   @Get()
-  getAllEmployee(): Promise<Employee[]> {
-    return this.employeeService.findAll();
+  getAllEmployee(
+    @Query('pageSize') pageSize: number,
+    @Query('pageNum') pageNum: number,
+  ): Promise<IEmployeeArrayResponse> {
+    return this.employeeService.findAll(pageSize, pageNum);
   }
 }
