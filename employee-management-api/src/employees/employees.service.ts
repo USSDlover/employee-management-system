@@ -5,6 +5,7 @@ import { Employee } from './employee.model';
 import { CreateEmployeeDto } from './create-employee.dto';
 import { UpdateEmployeeDto } from './update-employee.dto';
 import { SearchEmployeeDto } from './search-employee.dto';
+import { IEmployeeArrayResponse } from './employee-array-response.interface';
 
 @Injectable()
 export class EmployeesService {
@@ -27,25 +28,45 @@ export class EmployeesService {
     return this.employeeModel.findByIdAndDelete(employeeId).exec();
   }
 
-  async search(searchEmployeeDto: SearchEmployeeDto): Promise<Employee[]> {
+  async search(
+    searchEmployeeDto: SearchEmployeeDto,
+    pageSize: number,
+    pageNum: number,
+  ): Promise<IEmployeeArrayResponse> {
     const nameRegex = new RegExp(searchEmployeeDto.name, 'ig');
     const officeRegex = new RegExp(searchEmployeeDto.officeName, 'ig');
+    const query = {
+      $and: [
+        { $or: [{ firstName: nameRegex }, { lastName: nameRegex }] },
+        { officeName: officeRegex },
+      ],
+    };
 
-    return this.employeeModel
-      .find({
-        $and: [
-          { $or: [{ firstName: nameRegex }, { lastName: nameRegex }] },
-          { officeName: officeRegex },
-        ],
-      })
-      .exec();
+    return {
+      employees: await this.employeeModel
+        .find(query)
+        .skip(pageNum * pageSize)
+        .limit(pageSize)
+        .exec(),
+      totalCount: await this.employeeModel.count(query).exec(),
+    };
   }
 
   async findOne(employeeId: string): Promise<Employee> {
     return this.employeeModel.findOne({ _id: employeeId }).exec();
   }
 
-  async findAll(): Promise<Employee[]> {
-    return this.employeeModel.find().exec();
+  async findAll(
+    pageSize: number,
+    pageNum: number,
+  ): Promise<IEmployeeArrayResponse> {
+    return {
+      employees: await this.employeeModel
+        .find()
+        .skip(pageNum * pageSize)
+        .limit(pageSize)
+        .exec(),
+      totalCount: await this.employeeModel.estimatedDocumentCount().exec(),
+    };
   }
 }

@@ -1,6 +1,6 @@
 <h1>Employees</h1>
 <app-search-form
-  (cleared)="getEmployees()"
+  (cleared)="getEmployees(); searchingModel = undefined"
   (submitted)="onSearchFormSubmit($event)">
 </app-search-form>
 
@@ -29,6 +29,13 @@
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
+  <mat-paginator
+    (page)="onPageChange($event)"
+    [length]="totalEmployees"
+    [pageSizeOptions]="[5, 10, 20]"
+    [pageSize]="pageSize"
+    [pageIndex]="pageNum">
+  </mat-paginator>
 </ng-container>
 
 <a routerLink="./new" class="new-employee">

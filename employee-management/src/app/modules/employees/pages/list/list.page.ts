@@ -6,6 +6,7 @@ import {environment} from 'environment';
 import {EmployeeTableColumns} from './employee-table-columns';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {ActivatedRoute, Router} from '@angular/router';
+import {PageEvent} from '@angular/material/paginator';
 
 @Component({
   selector: 'app-list',
@@ -14,8 +15,14 @@ import {ActivatedRoute, Router} from '@angular/router';
 })
 export class ListPage implements OnInit, OnDestroy {
   employees: Employee[] = [];
+
   tableColumns = EmployeeTableColumns;
   displayedColumns: string[] = EmployeeTableColumns.map(column => column.col);
+  pageSize = 10;
+  pageNum = 0;
+  totalEmployees = 0;
+
+  searchingModel: SearchEmployeeDto | undefined;
 
   private subscriptions = new Subscription();
 
@@ -39,8 +46,15 @@ export class ListPage implements OnInit, OnDestroy {
 
   getEmployees(): void {
     this.subscriptions.add(
-      this.employeesService.all()
-        .subscribe(employees => this.employees = employees)
+      this.employeesService.all(this.pageSize, this.pageNum)
+        .subscribe({
+          next: response => {
+            this.employees = response.employees;
+            this.totalEmployees = response.totalCount
+          },
+          error: err => console.error(err),
+          complete: () => {}
+        })
     );
   }
 
@@ -68,16 +82,33 @@ export class ListPage implements OnInit, OnDestroy {
   }
 
   onSearchFormSubmit(searchModel: SearchEmployeeDto): void {
-    this.employeesService.search(searchModel)
-      .subscribe({
-        next: matchedEmployees => this.employees = matchedEmployees,
-        error: err => console.error(err),
-        complete: () => {}
-      })
+    this.searchingModel = searchModel;
+
+    this.subscriptions.add(
+      this.employeesService.search(searchModel, this.pageSize, this.pageNum)
+        .subscribe({
+          next: response => {
+            this.employees = response.employees;
+            this.totalEmployees = response.totalCount;
+          },
+          error: err => console.error(err),
+          complete: () => {}
+        })
+    );
   }
 
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
+  }
+
+  onPageChange(pageEvent: PageEvent): void {
+    this.pageSize = pageEvent.pageSize;
+    this.pageNum = pageEvent.pageIndex;
+
+    if (this.searchingModel)
+      this.onSearchFormSubmit(this.searchingModel);
+    else
+      this.getEmployees();
   }
 
 }

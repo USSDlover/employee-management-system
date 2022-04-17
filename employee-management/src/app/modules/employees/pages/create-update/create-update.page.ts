@@ -53,8 +53,10 @@ export class CreateUpdatePage implements OnInit {
     } else {
       this.employeeService.create(this.formGroup?.value)
         .subscribe({
-          next: (res) => {
-            console.log('Create result', res);
+          next: () => {
+            this.formGroup?.reset();
+            this.formGroup?.clearValidators();
+            this.formGroup?.setErrors(null);
           },
           error: err => {
             console.log(err);
