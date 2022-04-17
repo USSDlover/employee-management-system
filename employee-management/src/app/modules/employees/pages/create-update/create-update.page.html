@@ -1,4 +1,9 @@
-<a routerLink="/employees">Back to employees list</a>
+<div class="create-update__back" routerLink="/employees">
+  <button mat-icon-button>
+    <mat-icon>arrow_back_ios</mat-icon>
+  </button>
+  <span>Back to list</span>
+</div>
 <form *ngIf="formGroup" [formGroup]="formGroup" (ngSubmit)="onSubmit()">
   <ng-container *ngFor="let field of formFields">
 
@@ -53,7 +58,7 @@
     </ng-container>
 
   </ng-container>
-  <button [disabled]="formGroup.invalid" mat-raised-button type="submit">
+  <button color="primary" [disabled]="formGroup.invalid" mat-raised-button type="submit">
     {{employee ? 'Update' : 'Create'}}
   </button>
 </form>

@@ -1,10 +1,9 @@
-<h1>Employees</h1>
 <app-search-form
   (cleared)="getEmployees(); searchingModel = undefined"
   (submitted)="onSearchFormSubmit($event)">
 </app-search-form>
 
-<ng-container *ngIf="employees.length > 0 else emptyList">
+<ng-container>
   <table mat-table [dataSource]="employees">
     <ng-container *ngFor="let column of tableColumns">
       <ng-container [matColumnDef]="column.col">
@@ -28,6 +27,10 @@
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+    <div class="no-data-row" *matNoDataRow>
+      There is no data available.
+    </div>
   </table>
   <mat-paginator
     (page)="onPageChange($event)"
@@ -38,12 +41,8 @@
   </mat-paginator>
 </ng-container>
 
-<a routerLink="./new" class="new-employee">
+<a routerLink="../new" class="new-employee">
   <button mat-fab>
     <mat-icon>add</mat-icon>
   </button>
 </a>
-
-<ng-template #emptyList>
-  There is no data available. <a routerLink="./new">Create new Employee</a>
-</ng-template>

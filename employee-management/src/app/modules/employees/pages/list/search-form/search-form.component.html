@@ -1,22 +1,35 @@
-<mat-form-field appearance="standard">
-  <mat-label>Search by employee name</mat-label>
-  <input type="search"
-         matInput
-         (keydown.enter)="submitted.emit(searchModel)"
-         [(ngModel)]="searchModel.name">
-</mat-form-field>
-<ng-container *ngIf="searchModel.name.length > 0">
-  <button mat-icon-button (click)="cleared.emit(); searchModel.name = ''">
-    <mat-icon>cancel</mat-icon>
-  </button>
-</ng-container>
+<div class="search-form">
+  <div class="search-form__title">
+    <h2>Search for employees</h2>
+  </div>
+  <div class="search-form__fields">
+    <mat-form-field appearance="standard">
+      <mat-label>Search by employee name</mat-label>
+      <input type="search"
+             matInput
+             [(ngModel)]="searchModel.name">
+    </mat-form-field>
 
-<mat-form-field appearance="standard">
-  <mat-label>Select office please</mat-label>
-  <mat-select [(ngModel)]="searchModel.officeName" (ngModelChange)="submitted.emit(searchModel)">
-    <mat-option [value]="''">None</mat-option>
-    <mat-option *ngFor="let office of offices" [value]="office">
-      {{ office }}
-    </mat-option>
-  </mat-select>
-</mat-form-field>
+    <ng-container *ngIf="searchModel.name.length > 0">
+      <button mat-icon-button (click)="searchModel.name = ''">
+        <mat-icon>cancel</mat-icon>
+      </button>
+    </ng-container>
+
+    <mat-form-field appearance="standard">
+      <mat-label>Select office please</mat-label>
+      <mat-select [(ngModel)]="searchModel.officeName">
+        <mat-option [value]="undefined">None</mat-option>
+        <mat-option *ngFor="let office of offices" [value]="office">
+          {{ office }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <button
+      mat-raised-button
+      (click)="submitted.emit(searchModel)"
+      (keydown.enter)="submitted.emit(searchModel)"
+    >Search</button>
+  </div>
+</div>

@@ -1,3 +1,20 @@
+.create-update {
+  &__back {
+    width: fit-content;
+    margin: 0.25rem 0 1.5rem 0;
+    cursor: pointer;
+
+    button {
+
+      mat-icon {
+        line-height: 15px;
+        width: 15px;
+        height: 15px;
+      }
+    }
+  }
+}
+
 form {
   display: flex;
   flex-direction: column;
