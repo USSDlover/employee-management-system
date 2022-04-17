@@ -8,7 +8,7 @@ export const environment = {
     baseUrl: '/api/v1/'
   },
   title: {
-    baseTitle: 'User Management'
+    baseTitle: 'Employee Management'
   }
 };
 

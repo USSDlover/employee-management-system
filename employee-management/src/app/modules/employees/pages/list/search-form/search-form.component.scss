@@ -1,0 +1,13 @@
+.search-form {
+  &__title {
+    h2 {
+      margin: 1.25rem 0 0 0;
+    }
+  }
+  &__fields {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 2.5rem
+  }
+}

@@ -59,7 +59,7 @@ export class ListPage implements OnInit, OnDestroy {
   }
 
   onEdit(employee: Employee): void {
-    this.router.navigate(['edit', employee.id], {
+    this.router.navigate(['..', 'edit', employee.id], {
       relativeTo: this.route,
       state: { employee }
     }).then();
