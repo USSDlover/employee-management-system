@@ -8,6 +8,7 @@ import {Employee, EmployeesService, UpdateEmployeeDto} from '@data/employees';
 import {ActivatedRoute} from '@angular/router';
 import {MatChipInputEvent} from '@angular/material/chips';
 import {getOffices} from '@data/offices';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-create-update',
@@ -24,7 +25,8 @@ export class CreateUpdatePage implements OnInit {
   constructor(
     private title: Title,
     private employeeService: EmployeesService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private snackBar: MatSnackBar
   ) {
     if (route.snapshot.data['employee'])
       this.employee = route.snapshot.data['employee'];
@@ -36,34 +38,41 @@ export class CreateUpdatePage implements OnInit {
   }
 
   onSubmit(): void {
-    if (this.employee) {
-      const updatedEmployee: UpdateEmployeeDto = this.formGroup?.value;
-      updatedEmployee.id = this.employee.id;
+    if (this.employee)
+      this.updateTheEmployee();
+    else
+      this.createTheEmployee();
+  }
 
-      this.employeeService.update(updatedEmployee)
-        .subscribe({
-          next: (res) => {
-            console.log('Update result', res);
-          },
-          error: err => {
-            console.log(err);
-          },
-          complete: () => {}
-        });
-    } else {
-      this.employeeService.create(this.formGroup?.value)
-        .subscribe({
-          next: () => {
-            this.formGroup?.reset();
-            this.formGroup?.clearValidators();
-            this.formGroup?.setErrors(null);
-          },
-          error: err => {
-            console.log(err);
-          },
-          complete: () => {}
-        });
-    }
+  private createTheEmployee(): void {
+    this.employeeService.create(this.formGroup?.value)
+      .subscribe({
+        next: () => {
+          this.snackBar.open('Employee successfully created', 'Okay!', { duration: 2500 });
+        },
+        error: err => {
+          console.error(err);
+          this.snackBar.open('Failed to create employee', 'Try Again!', { duration: 2500 });
+        },
+        complete: () => {}
+      });
+  }
+
+  private updateTheEmployee(): void {
+    const updatedEmployee: UpdateEmployeeDto = this.formGroup?.value;
+    updatedEmployee.id = this.employee?.id!;
+
+    this.employeeService.update(updatedEmployee)
+      .subscribe({
+        next: () => {
+          this.snackBar.open('Employee successfully updated', 'Okay!', { duration: 2500 });
+        },
+        error: err => {
+          console.error(err)
+          this.snackBar.open('Failed to update employee', 'Try Again!', { duration: 2500 });
+        },
+        complete: () => {}
+      });
   }
 
   addTag(event: MatChipInputEvent): void {
