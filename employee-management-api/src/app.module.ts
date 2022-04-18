@@ -9,7 +9,11 @@ import { join } from 'path';
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', 'client'),
     }),
-    MongooseModule.forRoot(`mongodb://localhost/user-management`),
+    MongooseModule.forRoot(
+      `${process.env.MONGO_ADDRESS ?? 'mongodb://localhost'}/${
+        process.env.MONGO_DB ?? 'employees-management'
+      }`,
+    ),
     EmployeesModule,
   ],
 })
