@@ -2,9 +2,9 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Employee } from './employee.model';
-import { CreateEmployeeDto } from './create-employee.dto';
-import { UpdateEmployeeDto } from './update-employee.dto';
-import { SearchEmployeeDto } from './search-employee.dto';
+import { CreateEmployeeDto } from './dtos/create-employee.dto';
+import { UpdateEmployeeDto } from './dtos/update-employee.dto';
+import { SearchEmployeeDto } from './dtos/search-employee.dto';
 import { IEmployeeArrayResponse } from './employee-array-response.interface';
 
 @Injectable()
