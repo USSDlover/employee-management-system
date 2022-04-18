@@ -10,7 +10,7 @@ After installation, you just need to run the following commands
 
 `docker-compose build`
 
-`docker-compose push -d`
+`docker-compose up -d`
 
 After the above code completed successfully, the APP is reachable using [localhost:3000](http://localhost:3000)
 
