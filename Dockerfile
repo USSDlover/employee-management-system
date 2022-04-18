@@ -10,8 +10,6 @@ RUN npm ci -q
 COPY employee-management .
 RUN npm run build
 
-
-
 FROM node:16.3.0-alpine
 WORKDIR /employee-management-api
 COPY --from=builder /employee-management-api ./

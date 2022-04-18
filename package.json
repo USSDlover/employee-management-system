@@ -1,7 +1,0 @@
-{
-  "name": "employee-management",
-  "version": "1.0.0",
-  "scripts": {
-    "start": "npm run install --prefix employee-management && npm run build --prefix employee-management && npm run install --prefix employee-management-api && npm run start --prefix employee-management-api"
-  }
-}
