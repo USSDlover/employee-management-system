@@ -3,18 +3,16 @@ import { EmployeesModule } from './employees/employees.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
-import { OfficesModule } from './offices/offices.module';
-import { TagsModule } from './tags/tags.module';
 
-const FeatureModules = [EmployeesModule, OfficesModule, TagsModule];
+const url = process.env.MONGO_URL || 'localhost';
 
 @Module({
   imports: [
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', 'client'),
     }),
-    MongooseModule.forRoot(`mongodb://localhost/user-management`),
-    ...FeatureModules,
+    MongooseModule.forRoot(`mongodb://${url}:27017/employees-management`),
+    EmployeesModule,
   ],
 })
 export class AppModule {}

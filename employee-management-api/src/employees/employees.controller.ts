@@ -8,10 +8,10 @@ import {
   Query,
 } from '@nestjs/common';
 import { EmployeesService } from './employees.service';
-import { CreateEmployeeDto } from './create-employee.dto';
-import { UpdateEmployeeDto } from './update-employee.dto';
+import { CreateEmployeeDto } from './dtos/create-employee.dto';
+import { UpdateEmployeeDto } from './dtos/update-employee.dto';
 import { Employee } from './employee.model';
-import { SearchEmployeeDto } from './search-employee.dto';
+import { SearchEmployeeDto } from './dtos/search-employee.dto';
 import { IEmployeeArrayResponse } from './employee-array-response.interface';
 
 @Controller('employees')
