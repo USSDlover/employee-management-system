@@ -1,0 +1,10 @@
+employee-management-api/node_modules
+employee-management-api/dist
+
+employee-management/node_modules
+employee-management/.angular
+employee-management/.vscode
+
+.git
+.idea
+.vscode

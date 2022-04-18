@@ -4,15 +4,15 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 
+const url = process.env.MONGO_URL || 'localhost';
+
 @Module({
   imports: [
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', 'client'),
     }),
     MongooseModule.forRoot(
-      `${process.env.MONGO_ADDRESS ?? 'mongodb://localhost'}/${
-        process.env.MONGO_DB ?? 'employees-management'
-      }`,
+      `mongodb://${url}:27017?serverSelectionTimeoutMS=2000&authSource=admin`,
     ),
     EmployeesModule,
   ],
