@@ -11,9 +11,7 @@ const url = process.env.MONGO_URL || 'localhost';
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', 'client'),
     }),
-    MongooseModule.forRoot(
-      `mongodb://${url}:27017?serverSelectionTimeoutMS=2000&authSource=admin`,
-    ),
+    MongooseModule.forRoot(`mongodb://${url}:27017/employees-management`),
     EmployeesModule,
   ],
 })
